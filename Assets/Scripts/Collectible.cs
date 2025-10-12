@@ -2,19 +2,15 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
-    private PlatformManager manager;
+    public int coinValue = 1;
 
-    public void Start()
+    void OnTriggerEnter(Collider other)
     {
-        manager = FindObjectOfType<PlatformManager> ();
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        manager.CollectCoin();
-        Debug.Log("Coin Collected");
-        Destroy(gameObject);
-
+        if (other.CompareTag("Player"))
+        {
+            CoinCounter.instance.AddCoins(coinValue);
+            Destroy(gameObject); // Remove the coin
+        }
     }
 
     // Update is called once per frame
